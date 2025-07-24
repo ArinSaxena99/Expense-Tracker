@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import { Request } from "express";
-// import { JWT_SECRET } from "../config/env"; // adjust if your env file is elsewhere
 import dotenv from "dotenv";
 dotenv.config();
 
