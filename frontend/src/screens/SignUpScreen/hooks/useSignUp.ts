@@ -17,7 +17,7 @@ const [name, setName] = useState('');
         Alert.alert('Success', 'User signed up successfully!');
         const token = data.signup.token;
         await AsyncStorage.setItem('token', token);
-      //   navigation.navigate('login');
+        navigation.navigate('login');
       },
       onError: error => {
         console.log(error);
@@ -41,5 +41,5 @@ const [name, setName] = useState('');
         }
         signUpUser({ variables: { name, email, password } });
       };
-      return {name,setName, email,setEmail,password, setPassword,handleSignUp}
+      return {name,setName, email,setEmail,password, setPassword,handleSignUp,loading}
 }

@@ -1,5 +1,4 @@
-import { StyleSheet } from "react-native"
-
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,25 +9,26 @@ export const styles = StyleSheet.create({
   },
   formContainer: {
     gap: 16,
+    marginBottom:20
   },
   title: {
     color: 'white',
-    fontSize: 35,
+    fontSize: 40,
     fontWeight: 'bold',
-    marginBottom: 40,
+    marginBottom: 50,
   },
   input: {
     backgroundColor: '#31435D',
-    padding: 13,
+    padding: 16,
     borderRadius: 10,
     color: 'white',
     fontSize: 16,
-    marginBottom: 12,
+    marginBottom: 30,
   },
   label: {
     color: 'white',
-    marginBottom: 6,
-    fontSize: 14,
+    marginBottom: 8,
+    fontSize: 16,
     fontWeight: '500',
   },
   btnStyle: {
@@ -40,16 +40,20 @@ export const styles = StyleSheet.create({
   },
   btnText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
+  link:{
+    flexDirection:'row',
+    justifyContent:'center',
+    marginTop:10
+  },
   switchText: {
-    marginTop: 10,
-    textAlign: 'center',
     color: 'white',
     fontSize: 14,
   },
   signupText: {
+    fontSize:14,
     fontWeight: 'bold',
     color: '#ffffff',
   },

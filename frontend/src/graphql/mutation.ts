@@ -25,3 +25,16 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const ADD_EXPENSE = gql`
+mutation AddExpense($title:String!, $category:String!, $amount:Float!, $date: String!){
+addExpense(title: $title, category: $category, amount: $amount, date: $date) {
+    id
+    title
+    amount
+    category
+    date
+  }
+}
+
+`
