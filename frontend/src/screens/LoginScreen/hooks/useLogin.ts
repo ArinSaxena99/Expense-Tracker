@@ -10,7 +10,7 @@ export const useLogin = (navigation: NativeStackNavigationProp<any>) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [LoginInUser, { loading }] = useMutation(LOGIN_USER, {
+  const [LoginUser, { loading }] = useMutation(LOGIN_USER, {
     onCompleted: async (data) => {
       const token = data.login.token;
       await AsyncStorage.setItem('token', token);
@@ -36,7 +36,7 @@ export const useLogin = (navigation: NativeStackNavigationProp<any>) => {
       return Alert.alert('Wrong password', 'Password must be at least 6 characters, including a number and a letter');
     }
 
-    LoginInUser({ variables: { email, password } });
+    LoginUser({ variables: { email, password } });
   };
 
   return {

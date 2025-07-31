@@ -3,7 +3,7 @@ import AddExpenseScreen from '../../screens/AddExpenseScreen/AddExpense';
 import ChatbotScreen from '../../screens/ChatbotScreen/ChatbotScreen';
 import HomeScreen from '../../screens/HomeScreen/HomeScreen';
 import SettingsScreen from '../../screens/SettingsScreen/SettingsScreen';
-import AllExpenses from '../../screens/All Expenses/AllExpenses';
+import AllExpenses from '../../screens/AllExpenses/AllExpenses';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();

@@ -21,10 +21,10 @@ export const getUserFromToken = (req: Request): DecodedUser | null => {
   console.log(token);
 
   try {
-    console.log("Hello");
+    // console.log("Hello");
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as DecodedUser;
-        console.log(decoded);
+        // console.log(decoded);
 
     return decoded;
   } catch (err) {

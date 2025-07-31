@@ -5,13 +5,15 @@ import SignUpScreen from '../../screens/SignUpScreen/SignUpScreen';
 const Stack = createNativeStackNavigator();
 const AuthStack = () => {
   return (
-    <Stack.Navigator>
-        <Stack.Screen name='Login' component={LoginScreen}/>
-        <Stack.Screen name='SignUp' component={SignUpScreen}/>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Signup" component={SignUpScreen} />
     </Stack.Navigator>
-    
-  )
-}
+  );
+};
 
-export default AuthStack
-
+export default AuthStack;

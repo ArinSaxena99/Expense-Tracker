@@ -1,47 +1,28 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
-import React, { useState } from 'react';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { Picker } from '@react-native-picker/picker';
+import React from 'react';
+import {
+  Pressable,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { styles } from './AddExpenseStyles';
-import { ADD_EXPENSE } from '../../graphql/mutation';
-import { useMutation } from '@apollo/client';
+import { useAddExpense } from './hooks/useAddExpense';
 
 const AddExpense = () => {
-  const [addExpense, setAddExpense] = useState({
-    title: '',
-    amount: '',
-    category: '',
-    date: '',
-  });
+  const {
+    addExpense,
+    handleInput,
+    handleDateChange,
+    handleAdd,
+    setAddExpense,
+    setShowPicker,
+    showPicker,
+    tempDate,
+  } = useAddExpense();
 
-
-  const [addExpenseMutation, { loading }] = useMutation(ADD_EXPENSE, {
-    onCompleted: () => {
-      Alert.alert('Success', 'Expense added successfully!');
-     
-    },
-    onError: (error) => {
-      Alert.alert('Error', error.message);
-    },
-  });
-
-  const handleInput = (key: string, value: string) => {
-    setAddExpense(prev => ({ ...prev, [key]: value }));
-  };
-
-  const handleAdd = () => {
-    const { title, category, amount, date } = addExpense;
-
-    // Convert amount to number if needed
-    addExpenseMutation({
-      variables: {
-        title,
-        category,
-        amount: parseFloat(amount),
-        date,
-      },
-    });
-
-
-  }
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Add Expense</Text>
@@ -61,22 +42,43 @@ const AddExpense = () => {
           onChangeText={value => handleInput('amount', value)}
         />
         <Text style={styles.label}>Category</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter the category"
-          onChangeText={value => handleInput('category', value)}
-          value={addExpense.category}
-        />
+        <TouchableOpacity style={styles.pickerWrapper}>
+          <Picker
+            selectedValue={addExpense.category}
+            onValueChange={value => handleInput('category', value)}
+            style={styles.picker}
+          >
+            <Picker.Item label="Food" value="Food" />
+            <Picker.Item label="Transport" value="Transport" />
+            <Picker.Item label="Shopping" value="Shopping" />
+            <Picker.Item label="Bills" value="Bills" />
+            <Picker.Item label="Health" value="Health" />
+            <Picker.Item label="Entertainment" value="Entertainment" />
+          </Picker>
+        </TouchableOpacity>
+        
         <Text style={styles.label}>Date</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter the date"
-          onChangeText={value => handleInput('date', value)}
-          value={addExpense.date}
-        />
+        <Pressable onPress={() => setShowPicker(true)}>
+          <View pointerEvents="none">
+            <TextInput
+              style={styles.input}
+              placeholder="Select date"
+              onChangeText={value => handleInput('date', value)}
+              value={addExpense.date}
+            />
+          </View>
+        </Pressable>
+        {showPicker && (
+          <DateTimePicker
+            value={tempDate}
+            mode="date"
+            display="default"
+            onChange={handleDateChange}
+          />
+        )}
       </View>
-      <TouchableOpacity style={styles.btnStyle}  onPress={handleAdd}>
-        <Text style={styles.btntext} >Add Expense</Text>
+      <TouchableOpacity style={styles.btnStyle} onPress={handleAdd}>
+        <Text style={styles.btntext}>Add Expense</Text>
       </TouchableOpacity>
     </View>
   );

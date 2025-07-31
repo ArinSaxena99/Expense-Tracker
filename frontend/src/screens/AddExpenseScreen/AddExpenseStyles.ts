@@ -1,45 +1,61 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    paddingVertical: 50,
+    flex: 1,
+    backgroundColor: '#FDFDFD',
+    paddingHorizontal: 20,
+    justifyContent: 'center',
   },
   heading: {
-    fontSize: 35,
-    fontWeight: 'bold',
-    marginBottom: 30,
+    fontSize: 45,
+    fontWeight: '600',
+    marginBottom: 90,
+    fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'System',
+    color: '#0A0A0A',
   },
-
   form: {
-    marginBottom: 30,
+    gap: 20,
   },
   label: {
     fontSize: 20,
-    marginBottom: 5,
+    fontWeight: '500',
+    color: '#333',
   },
   input: {
-    backgroundColor: '#31435D',
-    fontSize: 16,
-    borderRadius: 10,
+    height: 50,
     borderWidth: 1,
-    marginBottom: 30,
-    padding: 10,
-    color:'white'
+    borderColor: '#DADADA',
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    backgroundColor: '#FFFFFF',
+    color: '#000',
   },
-  btncontainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  pickerWrapper: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    marginBottom: 20,
+    overflow: 'hidden',
+  },
+
+  picker: {
+    height: 50,
+    width: '100%',
+    color:'black'
   },
   btnStyle: {
-    backgroundColor: '#385a89ff',
-    padding: 14,
-    borderRadius: 10,
+    marginTop: 40,
+    backgroundColor: '#0E2C47',
+    paddingVertical: 14,
+    borderRadius: 12,
     alignItems: 'center',
-    marginBottom: 10,
+    elevation: 5,
   },
   btntext: {
+    color: '#FFFFFF',
     fontSize: 16,
-    color: 'white',
+    fontWeight: '600',
   },
 });

@@ -13,6 +13,7 @@ const expenseResolvers = {
       if (category) {
         query.category = category;
       }
+
       if (date) {
         const targetDate = new Date(date);
         const nextDate = new Date(targetDate);
