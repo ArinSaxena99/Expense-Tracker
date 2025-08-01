@@ -28,7 +28,7 @@ async function startServer() {
   await server.start();
   server.applyMiddleware({ app: app as any });
 
-  app.listen(PORT, '192.168.1.68', () => console.log(`Server is running port ${PORT}`));
+  app.listen(PORT,'192.168.1.68', () => console.log(`Server is running port ${PORT}`));
 }
 
 startServer().catch((err) => {
@@ -37,4 +37,4 @@ startServer().catch((err) => {
 
 
 // '192.168.1.68'
-// '10.141.75.115'
+// "10.141.75.115"

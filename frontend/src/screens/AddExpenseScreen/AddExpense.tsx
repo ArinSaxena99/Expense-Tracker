@@ -40,6 +40,7 @@ const AddExpense = () => {
           placeholder="Enter the amount"
           value={addExpense.amount}
           onChangeText={value => handleInput('amount', value)}
+          keyboardType='numeric'
         />
         <Text style={styles.label}>Category</Text>
         <TouchableOpacity style={styles.pickerWrapper}>
@@ -56,7 +57,7 @@ const AddExpense = () => {
             <Picker.Item label="Entertainment" value="Entertainment" />
           </Picker>
         </TouchableOpacity>
-        
+
         <Text style={styles.label}>Date</Text>
         <Pressable onPress={() => setShowPicker(true)}>
           <View pointerEvents="none">

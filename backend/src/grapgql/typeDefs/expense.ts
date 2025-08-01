@@ -13,7 +13,7 @@ scalar Date
  }
 
  type Query {
- getExpenses(category: String, startDate:String, endDate: String, date: String):[Expense!]
+ getExpenses(category: [String], startDate:String, endDate: String, date: String):[Expense!]
  getExpenseById(id: ID!): Expense
  }
 

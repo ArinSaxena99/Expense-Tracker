@@ -18,7 +18,7 @@ export const getUserFromToken = (req: Request): DecodedUser | null => {
 
   const token = authHeader.split(" ")[1];
   if (!token) return null;
-  console.log(token);
+  // console.log(token);
 
   try {
     // console.log("Hello");

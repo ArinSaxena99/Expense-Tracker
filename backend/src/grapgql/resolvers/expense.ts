@@ -9,6 +9,7 @@ const expenseResolvers = {
       }
 
       const { category, startDate, endDate, date } = args;
+      console.log(startDate,endDate,category)
       const query: any = { userId: context.user.id };
       if (category) {
         query.category = category;

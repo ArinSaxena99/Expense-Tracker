@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
     borderWidth:0.5,
     borderRadius:9,
     marginHorizontal:10,
-    padding:9,
+    padding:7,
   },
   selectedCategory:{
     backgroundColor:'#1F314B',
