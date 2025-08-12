@@ -1,45 +1,59 @@
 import { useQuery } from '@apollo/client';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, Text, TouchableOpacity, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
+import FloatingAddButton from '../../components/FloatingAddButton/FloatingAddButton';
 import ExpenseItem from '../../components/Ui/ExpenseItem/ExpenseItem';
 import { GET_EXPENSES } from '../../graphql/query';
 import { styles } from './AllExpenses.styles';
+import Filter from './components/Filter/Filter';
 
 const AllExpenses = ({ navigation }: any) => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
   const [showFromPicker, setShowFromPicker] = useState(false);
   const [showToPicker, setShowToPicker] = useState(false);
   const [tempDate, setTempDate] = useState(new Date());
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
 
-  const categories = ['All', 'Food', 'Travel', 'Shopping', 'Bills', 'Other'];
+  const categories = [
+    'All',
+    'Food',
+    'Transport',
+    'Shopping',
+    'Bills',
+    'Health',
+    'Ebtertainment',
+    'Other',
+  ];
 
   const { loading, error, data, refetch } = useQuery(GET_EXPENSES, {
     variables: {
       category: selectedCategory.length > 0 ? selectedCategory : undefined,
-      startDate: startDate.toISOString().split('T')[0],
-      endDate: endDate.toISOString().split('T')[0],
+      startDate: startDate ? startDate.toISOString().split('T')[0] : undefined,
+      endDate: endDate ? endDate.toISOString().split('T')[0] : undefined,
     },
   });
-  // console.log(fromDate, toDate);
 
   useEffect(() => {
     refetch({
       category: selectedCategory.length > 0 ? selectedCategory : undefined,
-      startDate: startDate.toISOString().split('T')[0],
-      endDate: endDate.toISOString().split('T')[0],
+      startDate: startDate ? startDate.toISOString().split('T')[0] : undefined,
+      endDate: endDate ? endDate.toISOString().split('T')[0] : undefined,
     });
   }, [startDate, endDate, selectedCategory]);
-
-  if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error loading data...</Text>;
 
   const handleFromDateChange = (event: any, selectedDate?: Date) => {
-const date = new Date(event.nativeEvent.timestamp);
+    const date = new Date(event.nativeEvent.timestamp);
     console.log(date);
-    // console.log('EVENT:', event);
     console.log(selectedDate);
     setShowFromPicker(false);
     if (date) setStartDate(date);
@@ -50,15 +64,20 @@ const date = new Date(event.nativeEvent.timestamp);
     console.log(date);
     console.log(selectedDate);
     setShowToPicker(false);
-    // if (selectedDate) setToDate(selectedDate);
-        if (date) setEndDate(date);
-
+    if (date) setEndDate(date);
   };
 
   const renderItem = ({ item }: any) => {
     const isoDate = new Date(item.date).toISOString().split('T')[0];
     return (
-      <ExpenseItem date={isoDate} title={item.title} amount={item.amount} />
+      <ExpenseItem
+        date={isoDate}
+        title={item.title}
+        amount={item.amount}
+        category={item.category}
+        id={item.id}
+        onRefetch={refetch}
+      />
     );
   };
 
@@ -87,6 +106,7 @@ const date = new Date(event.nativeEvent.timestamp);
       return updatedCategories;
     });
   };
+
   const renderCategory = ({ item }: any) => {
     const isSelected =
       (item === 'All' && selectedCategory.length === 0) ||
@@ -103,51 +123,54 @@ const date = new Date(event.nativeEvent.timestamp);
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>All Expenses</Text>
-      <View style={styles.dateFilter}>
-        <TouchableOpacity
-          onPress={() => setShowFromPicker(true)}
-          style={styles.dateBox}
-        >
-          <Text style={styles.Dates}>
-            {startDate.toISOString().split('T')[0]}
-          </Text>
-        </TouchableOpacity>
-        <View style={styles.vertical}></View>
-        <TouchableOpacity
-          onPress={() => setShowToPicker(true)}
-          style={styles.dateBox}
-        >
-          <Text style={styles.Dates}>{endDate.toISOString().split('T')[0]}</Text>
-        </TouchableOpacity>
-        {showFromPicker && (
-          <DateTimePicker
-            value={startDate}
-            mode="date"
-            display="default"
-            onChange={handleFromDateChange}
-          />
-        )}
+      <FloatingAddButton />
 
-        {showToPicker && (
-          <DateTimePicker
-            value={endDate}
-            mode="date"
-            display="default"
-            onChange={handleToDateChange}
-          />
-        )}
+      <View>
+        <TouchableOpacity
+          style={styles.clearButton}
+          onPress={() => {
+            setStartDate(null);
+            setEndDate(null);
+            setSelectedCategory([]);
+          }}
+        >
+          <Text style={styles.clearText}>Clear Filters</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.categoryFilter}>
+      <Filter
+        categories={categories}
+        showFromPicker={showFromPicker}
+        setShowFromPicker={setShowFromPicker}
+        showToPicker={showToPicker}
+        setShowToPicker={setShowToPicker}
+        startDate={startDate}
+        endDate={endDate}
+        handleFromDateChange={handleFromDateChange}
+        handleToDateChange={handleToDateChange}
+        setSelectedCategory={setSelectedCategory}
+        renderCategory={renderCategory}
+      />
+
+
+      <View style={{ flex: 1 }}>
         <FlatList
-          horizontal
-          data={categories}
-          showsHorizontalScrollIndicator={false}
-          renderItem={renderCategory}
-          keyExtractor={item => item}
+          data={data?.getExpenses || []}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
         />
+        {loading && (
+          <View
+            style={{
+              ...StyleSheet.absoluteFillObject,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgba(255,255,255,0.7)',
+            }}
+          >
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        )}
       </View>
-
-      <FlatList data={data?.getExpenses || []} renderItem={renderItem} />
     </View>
   );
 };

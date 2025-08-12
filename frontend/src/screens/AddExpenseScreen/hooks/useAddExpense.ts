@@ -1,8 +1,12 @@
-import { useState } from 'react';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useMutation } from '@apollo/client';
-import { ADD_EXPENSE } from '../../../graphql/mutation';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 import { Alert } from 'react-native';
+import { ADD_EXPENSE } from '../../../graphql/mutation';
+import { RootStackParamList } from '../../../navigation/types';
+
+type NavigationProps = BottomTabNavigationProp<RootStackParamList, 'MainApp'>;
 
 export const useAddExpense = () => {
   const [addExpense, setAddExpense] = useState({
@@ -13,6 +17,8 @@ export const useAddExpense = () => {
   });
   const [showPicker, setShowPicker] = useState(false);
   const [tempDate, setTempDate] = useState(new Date());
+  const navigation = useNavigation<NavigationProps>();
+
 
   const [addExpenseMutation, { loading }] = useMutation(ADD_EXPENSE, {
     onCompleted: () => {
@@ -23,7 +29,10 @@ export const useAddExpense = () => {
         category: '',
         date: '',
       });
+          navigation.navigate('MainApp', {screen: 'AllExpenses'});
+
     },
+    
     onError: error => {
       Alert.alert('Error', error.message);
     },
@@ -33,11 +42,17 @@ export const useAddExpense = () => {
     setAddExpense(prev => ({ ...prev, [key]: value }));
   };
 
-  
   const handleAdd = () => {
     const { title, category, amount, date } = addExpense;
 
-    // Convert amount to number if needed
+    if (!title || !amount || !category || !date) {
+      Alert.alert(
+        'Empty field',
+        'Please fill all the fields before submitting',
+      );
+      return;
+    }
+
     addExpenseMutation({
       variables: {
         title,
@@ -46,6 +61,7 @@ export const useAddExpense = () => {
         date,
       },
     });
+
   };
   const handleDateChange = (event: any, selectedDate?: Date) => {
     setShowPicker(false);

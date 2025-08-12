@@ -1,14 +1,21 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
+import { styles } from './SettingsScreen.styles'
 
 const SettingsScreen = () => {
   return (
-    <View>
-      <Text>SettingsScreen</Text>
-    </View>
-  )
-}
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Settings</Text>
 
-export default SettingsScreen
+      <TouchableOpacity style={styles.item}>
+        <Text style={styles.itemText}>Profile</Text>
+      </TouchableOpacity>
 
-const styles = StyleSheet.create({})
+      <TouchableOpacity style={styles.item}>
+        <Text style={styles.itemText}>Logout</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
+};
+
+export default SettingsScreen;

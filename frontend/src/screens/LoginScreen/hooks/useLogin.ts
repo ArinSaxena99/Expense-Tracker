@@ -15,10 +15,12 @@ export const useLogin = (navigation: NativeStackNavigationProp<any>) => {
       const token = data.login.token;
       await AsyncStorage.setItem('token', token);
       Alert.alert('Success', 'User signed in successfully!');
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      });
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{ name: 'Home' }],
+      // });
+      navigation.replace("MainApp");
+
     },
     onError: error => {
       Alert.alert('Error', error.message);

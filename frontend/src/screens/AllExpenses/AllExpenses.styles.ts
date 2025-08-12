@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#FDFDFD',
     paddingHorizontal: 20,
     justifyContent: 'center',
-    paddingTop: 15,
+    paddingTop: 20,
   },
   heading: {
     fontSize: 45,
@@ -15,44 +15,49 @@ export const styles = StyleSheet.create({
     fontFamily: Platform.OS === 'android' ? 'sans-serif-medium' : 'System',
     color: '#0A0A0A',
   },
-  dateBox: {},
-  dateFilter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 20,
-    padding: 15,
+
+  //6.
+  categoryItem: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
+    height: 45,
+    backgroundColor: '#d3d3d3',
     borderWidth: 0.5,
-    borderColor: '#ccc',
     borderRadius: 9,
+    marginHorizontal: 10,
+    padding: 7,
   },
-  Dates: {
-    fontSize: 18,
+
+  //7.
+  selectedCategory: {
+    backgroundColor: '#1F314B',
+    borderWidth: 2,
   },
-  vertical: {
-    width: 1,
-    height: '100%',
-    backgroundColor: 'black',
+
+  //8.
+  category: {
+    color: 'white',
   },
-  categoryFilter: {
-    flexDirection: 'row',
-    gap: 90,
-  },  
-  categoryItem:{
-    justifyContent:'center',
-    alignItems:'center',
-    width:80,
-    height:45,
-    backgroundColor:"#d3d3d3",
-    borderWidth:0.5,
-    borderRadius:9,
-    marginHorizontal:10,
-    padding:7,
+  clearButton: {
+    height: 50,
+    width: 100,
+    backgroundColor: '#1F314B',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  selectedCategory:{
-    backgroundColor:'#1F314B',
-    borderWidth:2
+  clearText: {
+    color: 'white',
   },
-  category:{
-    color:"white"
-  }
+  loaderContainer: {
+    color: 'black',
+    height: 20,
+    width: 20,
+  },
+  // LoadinContainer: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
 });

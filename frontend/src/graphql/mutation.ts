@@ -27,14 +27,61 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_EXPENSE = gql`
-mutation AddExpense($title:String!, $category:String!, $amount:Float!, $date: String!){
-addExpense(title: $title, category: $category, amount: $amount, date: $date) {
-    id
-    title
-    amount
-    category
-    date
+  mutation AddExpense(
+    $title: String!
+    $category: String!
+    $amount: Float!
+    $date: String!
+  ) {
+    addExpense(
+      title: $title
+      category: $category
+      amount: $amount
+      date: $date
+    ) {
+      _id
+      title
+      amount
+      category
+      date
+    }
   }
-}
+`;
 
-`
+export const UPDATE_EXPENSE = gql`
+  mutation UpdateExpense(
+    $id: ID!
+    $title: String!
+    $amount: Float!
+    $category: String!
+    $date: String!
+  ) {
+    updateExpense(
+      id: $id
+      title: $title
+      amount: $amount
+      category: $category
+      date: $date
+    ) {
+      _id
+      title
+      amount
+      category
+      date
+    }
+  }
+`;
+
+// export const DELETE_EXPENSE = gql `
+// mutation DeleteExpense($id: ID!){
+// deleteExpense(id: $id)
+// }`
+// ;
+
+export const DELETE_EXPENSE = gql`
+  mutation DeleteExpense($id: ID!) {
+    deleteExpense(id: $id)
+  }
+`;
+
+

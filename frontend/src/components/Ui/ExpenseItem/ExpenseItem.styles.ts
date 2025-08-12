@@ -1,32 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  //   itemcontainer: {
-  //     flex: 1,
-  //     flexDirection: 'row',
-  //     justifyContent: 'space-between',
-  //     padding: 10,
-  //     borderBottomWidth: 0.5,
-  //     borderBottomColor: 'grey',
-  //   },
-  //   title: {
-  //     fontSize: 26,
-  //   },
-  //   about: {},
-  //   amt: {
-  //     fontSize: 20,
-  //   },
-  //   date: {
-  //     fontSize: 20,
-  //     color: 'grey',
-  //   },
   itemcontainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 12,
     paddingHorizontal: 5,
-    borderBottomWidth:0.5,
+    borderBottomWidth: 0.5,
     borderBottomColor: 'black',
   },
   title: {
@@ -46,5 +27,10 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: '#888',
     marginTop: 4,
+  },
+  isSelectedStyle: {
+    backgroundColor: '#cceeff', 
+    borderWidth: 1,
+    borderColor: '#007bff',
   },
 });

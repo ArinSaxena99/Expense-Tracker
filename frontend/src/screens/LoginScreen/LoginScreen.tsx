@@ -11,7 +11,7 @@ type Props = {
 };
 
 const LoginScreen = ({ navigation }: Props) => {
-  const { email, setEmail, password, setPassword, handleLogin, loading } =
+  const {email, setEmail, password, setPassword, handleLogin, loading} =
     useLogin(navigation);
 
   return (

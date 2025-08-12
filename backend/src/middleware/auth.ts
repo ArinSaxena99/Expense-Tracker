@@ -15,20 +15,18 @@ export const getUserFromToken = (req: Request): DecodedUser | null => {
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return null;
   }
-
   const token = authHeader.split(" ")[1];
   if (!token) return null;
   // console.log(token);
 
   try {
-    // console.log("Hello");
-
+    console.log("TRYYYYY")
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as DecodedUser;
-        // console.log(decoded);
-
+    console.log(decoded)
     return decoded;
   } catch (err) {
-        console.log(err)
+    // console.log("CATCHHHHH")
+    console.log(err);
 
     return null;
   }

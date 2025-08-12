@@ -5,8 +5,9 @@ import HomeScreen from '../../screens/HomeScreen/HomeScreen';
 import SettingsScreen from '../../screens/SettingsScreen/SettingsScreen';
 import AllExpenses from '../../screens/AllExpenses/AllExpenses';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { TabParamList } from '../types';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TabParamList>();
 
 const TabNavigator = () => {
   return (
@@ -33,15 +34,6 @@ const TabNavigator = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="list-outline" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="AddExpense"
-        component={AddExpenseScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="add-circle-outline" size={size} color={color} />
           ),
         }}
       />
