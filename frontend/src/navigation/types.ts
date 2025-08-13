@@ -1,7 +1,8 @@
 import { ApolloQueryResult, OperationVariables } from '@apollo/client';
+import { NavigatorScreenParams } from '@react-navigation/native';
 
 export type RootStackParamList = {
-  Auth: undefined;
+  Auth: NavigatorScreenParams<AuthStackParamList>;
   MainApp: { screen?: keyof TabParamList } | undefined;
   AddExpense: undefined;
   EditExpense: {
@@ -20,3 +21,8 @@ export type TabParamList = {
   Chatbot: undefined;
   Settings: undefined;
 };
+
+export type AuthStackParamList ={
+  Login:undefined;
+  Signup:undefined
+} 

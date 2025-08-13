@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 
 const authTypesDefs = gql`
   type User {
-    id: ID!
+    _id: ID!
     name: String!
     email: String!
   }
@@ -13,6 +13,7 @@ const authTypesDefs = gql`
 
   type Query {
     me: User
+    getUserInfo: User!
   }
 
   type Mutation {

@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../models/userModel";
+import { AuthenticationError } from "apollo-server-express";
 
 // const users: any[] = [];
 
@@ -8,6 +9,17 @@ const authResolvers = {
   Query: {
     me: (_: any, context: any) => {
       return context.user;
+    },
+    async getUserInfo(_: any, context: any) {
+      console.log("Hellooooooo");
+      console.log(context);
+      if (!context.user) {
+        throw new AuthenticationError("Not authenticated");
+      }
+      console.log("Heyyyyy");
+      const user = await User.findById(context.user.id);
+      console.log(user);
+      return user;
     },
   },
 
@@ -39,7 +51,7 @@ const authResolvers = {
     },
 
     login: async (_: any, { email, password }: any) => {
-      const user = await User.findOne({email});
+      const user = await User.findOne({ email });
       if (!user) {
         throw new Error("User not found!");
       }
@@ -49,20 +61,18 @@ const authResolvers = {
         throw new Error("Invalid credentials!");
       }
 
-      const token = jwt.sign(
-        { id: user._id },
-        process.env.JWT_SECRET!,
-        {
-          expiresIn: "7d",
-        }
-      );
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
+        expiresIn: "7d",
+      });
 
-      return { token, user:{
-        id:user._id,
-        name:user.name,
-        email:user.email,
-      } 
-    };
+      return {
+        token,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+        },
+      };
     },
   },
 };

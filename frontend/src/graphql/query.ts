@@ -52,3 +52,11 @@ export const GET_EXPENSE_BY_DATE = gql`
     }
   }
 `;
+
+export const GET_USER_INFO = gql`
+query getUserInfo {
+getUserInfo{
+id:_id
+name
+email
+}}`

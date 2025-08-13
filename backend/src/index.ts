@@ -20,8 +20,9 @@ async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req }: {req: Request}) => {
+    context: async ({ req }: {req: Request}) => {
       const user = getUserFromToken(req);
+      console.log("ERER",user)
       return { user };
     },
   });

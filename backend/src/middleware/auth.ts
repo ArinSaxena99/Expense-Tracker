@@ -22,10 +22,10 @@ export const getUserFromToken = (req: Request): DecodedUser | null => {
   try {
     console.log("TRYYYYY")
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as DecodedUser;
-    console.log(decoded)
+    console.log(decoded,"HErewasdfs")
     return decoded;
   } catch (err) {
-    // console.log("CATCHHHHH")
+    console.log("Catchhh")
     console.log(err);
 
     return null;
